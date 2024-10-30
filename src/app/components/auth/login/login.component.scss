@@ -1,0 +1,24 @@
+.card-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 100px;
+
+  .welcome-card {
+    width: 350px;
+
+    .welcome-card-header {
+      justify-content: center;
+      margin-bottom: 20px;
+    }
+
+    .form-field {
+      margin-bottom: 5px;
+      width: 100%;
+    }
+
+    .submit-button {
+      margin-top: 20px;
+      width: 100%;
+    }
+  }
+}

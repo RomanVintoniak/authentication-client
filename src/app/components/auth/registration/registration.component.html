@@ -1,1 +1,92 @@
-<p>registration works!</p>
+<div class="card-container">
+  <mat-card class="welcome-card">
+    <mat-card-header class="welcome-card-header">
+      <mat-card-title>Registration</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <form [formGroup]="form">
+        <div>
+          <mat-form-field appearance="outline" class="form-field">
+            <mat-label>First name</mat-label>
+            <input matInput formControlName="firstName">
+          </mat-form-field>
+        </div>
+        <div>
+          <mat-form-field appearance="outline" class="form-field">
+            <mat-label>Last name</mat-label>
+            <input matInput formControlName="lastName">
+          </mat-form-field>
+        </div>
+        <div>
+          <mat-form-field appearance="outline" class="form-field">
+            <mat-label>Email</mat-label>
+            <input matInput formControlName="email">
+            @if (form.controls['email'].hasError('email')) {
+              <mat-error>Not a valid email</mat-error>
+            }
+          </mat-form-field>
+        </div>
+        <div>
+          <mat-form-field appearance="outline" class="form-field">
+            <mat-label>Password</mat-label>
+            <input
+              matInput
+              [type]="isPasswordHidden ? 'password' : 'text'"
+              formControlName="password"
+            />
+            <button
+              mat-icon-button
+              matSuffix
+              (click)="isPasswordHidden = !isPasswordHidden"
+              type="button"
+            >
+              <mat-icon>{{isPasswordHidden ? 'visibility_off' : 'visibility'}}</mat-icon>
+            </button>
+            @if (form.controls['password'].hasError('pattern')) {
+              <mat-error>Password is not strong</mat-error>
+            }
+          </mat-form-field>
+        </div>
+        <div>
+          <mat-form-field appearance="outline" class="form-field">
+            <mat-label>Repeat password</mat-label>
+            <input
+              matInput
+              [type]="isRepeatPasswordHidden ? 'password' : 'text'"
+              formControlName="passwordConfirm"
+            />
+            <button
+            mat-icon-button
+            matSuffix
+            (click)="isRepeatPasswordHidden = !isRepeatPasswordHidden"
+            type="button"
+            >
+              <mat-icon>{{isRepeatPasswordHidden ? 'visibility_off' : 'visibility'}}</mat-icon>
+            </button>
+            @if (form.controls['passwordConfirm'].hasError('passwordMismatch')) {
+              <mat-error>Passwords do not match</mat-error>
+            }
+          </mat-form-field>
+        </div>
+        <div class="recaptcha-container">
+          <re-captcha
+            (resolved)="checkCaptcha($event)"
+            siteKey="6Le8KWwqAAAAADIIgAVeicDlXKyBlgBho2hKxSd3">
+          </re-captcha>
+        </div>
+        @if (responseErrorMessage.length) {
+          <mat-error>{{responseErrorMessage}}</mat-error>
+        }
+        <button
+          class="submit-button"
+          mat-flat-button
+          type="submit"
+          (click)="onRegister()"
+          [disabled]="form.invalid || !isCaptchaResolved"
+        >
+          Submit
+        </button>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>
