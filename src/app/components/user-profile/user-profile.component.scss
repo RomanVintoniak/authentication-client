@@ -1,0 +1,12 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 100px;
+
+  .userData {
+    font-size: 30px;
+    text-align: center;
+    line-height: normal;
+  }
+}
