@@ -1,1 +1,13 @@
-<p>user-profile works!</p>
+<div class="container">
+  @if (user) {
+  <div class="userData">
+    <p>{{ user.firstName }} {{ user.lastName }}</p>
+    <p>{{ user.email }}</p>
+    <p>isEmailConfirmed: {{ user.isEmailConfirmed }}</p>
+  </div>
+  }
+  <button mat-flat-button (click)="logout()">
+    <mat-icon>logout</mat-icon>
+    Logout
+  </button>
+</div>

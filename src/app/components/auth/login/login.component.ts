@@ -7,6 +7,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { Regexp } from '../../../core/constants/regexp';
 import { AuthService } from '../../../core/services/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -24,10 +25,11 @@ import { AuthService } from '../../../core/services/auth.service';
 })
 export class LoginComponent {
   authService = inject(AuthService);
+  router = inject(Router);
   fb = inject(FormBuilder);
 
   form: FormGroup;
-  isPasswordHidden = false;
+  isPasswordHidden = true;
   responseErrorMessage = '';
 
   constructor() {
@@ -38,8 +40,9 @@ export class LoginComponent {
   }
 
   onLogin() {
-    this.authService.login(this.form.value).subscribe(userID => {
-      console.log(userID);
+    this.authService.login(this.form.value).subscribe(userId => {
+      localStorage.setItem('userId', userId);
+      this.router.navigate(['/users', userId]);
     }, error => {
       this.responseErrorMessage = error.error;
     })
