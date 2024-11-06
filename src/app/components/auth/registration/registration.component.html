@@ -77,12 +77,17 @@
         @if (responseErrorMessage.length) {
           <mat-error>{{responseErrorMessage}}</mat-error>
         }
+        @if (isLoading) {
+          <div class="spinner-container">
+            <mat-spinner [diameter]="50"></mat-spinner>
+          </div>
+        }
         <button
           class="submit-button"
           mat-flat-button
           type="submit"
           (click)="onRegister()"
-          [disabled]="form.invalid || !isCaptchaResolved"
+          [disabled]="form.invalid || !isCaptchaResolved || isLoading"
         >
           Submit
         </button>
