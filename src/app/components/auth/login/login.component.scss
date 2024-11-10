@@ -1,7 +1,7 @@
 .card-container {
   display: flex;
   justify-content: center;
-  margin-top: 100px;
+  margin-top: 60px;
 
   .welcome-card {
     width: 350px;
@@ -14,6 +14,11 @@
     .form-field {
       margin-bottom: 5px;
       width: 100%;
+    }
+
+    .spinner-container {
+      display: flex;
+      justify-content: center;
     }
 
     .submit-button {

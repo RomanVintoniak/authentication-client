@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { UserRegistration } from '../../../core/models/user-registration.model';
@@ -10,9 +11,7 @@ import { passwordConfirmationValidator } from '../../../shared/custom-validators
 import { Regexp } from '../../../core/constants/regexp';
 import { AuthService } from '../../../core/services/auth.service';
 import { Router } from '@angular/router';
-import { catchError, throwError } from 'rxjs';
 import { RecaptchaModule, RecaptchaFormsModule  } from 'ng-recaptcha';
-
 
 @Component({
   selector: 'app-registration',
@@ -23,6 +22,7 @@ import { RecaptchaModule, RecaptchaFormsModule  } from 'ng-recaptcha';
     MatInputModule,
     MatIconModule,
     MatButtonModule,
+    MatProgressSpinnerModule,
     ReactiveFormsModule,
     RecaptchaModule,
     RecaptchaFormsModule
@@ -40,6 +40,7 @@ export class RegistrationComponent {
   isRepeatPasswordHidden = true;
   isPasswordHidden = true;
   isCaptchaResolved = false;
+  isLoading = false;
 
   constructor() {
     this.form = this.fb.group({
@@ -58,16 +59,17 @@ export class RegistrationComponent {
 
   onRegister() {
     const userData: UserRegistration = this.form.value as UserRegistration;
+    this.isLoading = true;
 
-    this.authService.register(userData)
-      .pipe(
-        catchError(error => {
-          this.responseErrorMessage = error.error;
-          return throwError(() => error);
-        })
-      )
-      .subscribe(() => {
+    this.authService.register(userData).subscribe({
+      next: () => {
+        this.isLoading = false;
         this.router.navigate(['/login']);
-      });
+      },
+      error: (error) => {
+        this.isLoading = false;
+        this.responseErrorMessage = error.error;
+      }
+    });
   }
 }

@@ -4,11 +4,13 @@ import { User } from '../../core/models/user.model';
 import { Router, RouterModule } from '@angular/router';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-user-profile',
   standalone: true,
   imports: [
+    CommonModule,
     RouterModule,
     MatButtonModule,
     MatIconModule

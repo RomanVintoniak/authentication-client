@@ -1,12 +1,35 @@
 .container {
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-top: 100px;
+  flex-direction: row;
+  justify-content: center;
+  margin-top: 50px;
 
-  .userData {
-    font-size: 30px;
-    text-align: center;
-    line-height: normal;
+  .left-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-right: 30px;
+
+    .user-avatar {
+      height: 150px;
+      width: 150px;
+      border-radius: 50%;
+    }
+
+    .logout-button {
+      margin-top: 20px;
+    }
   }
+
+  .right-section {
+    padding-left: 35px;
+    border-left: 1px solid lightgray;
+
+    .user-data {
+      font-size: 24px;
+      line-height: normal;
+      font-weight: 500;
+    }
+  }
+
 }

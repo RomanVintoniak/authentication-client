@@ -1,10 +1,11 @@
 .card-container {
   display: flex;
   justify-content: center;
-  margin-top: 100px;
+  margin-top: 60px;
 
   .welcome-card {
     width: 350px;
+    margin-bottom: 60px;
 
     .welcome-card-header {
       justify-content: center;
@@ -19,6 +20,12 @@
     .recaptcha-container {
       display: flex;
       justify-content: center;
+    }
+
+    .spinner-container {
+      display: flex;
+      justify-content: center;
+      margin-top: 15px;
     }
 
     .submit-button {
