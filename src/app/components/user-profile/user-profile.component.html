@@ -1,13 +1,19 @@
 <div class="container">
-  @if (user) {
-  <div class="userData">
-    <p>{{ user.firstName }} {{ user.lastName }}</p>
-    <p>{{ user.email }}</p>
-    <p>isEmailConfirmed: {{ user.isEmailConfirmed }}</p>
+  <div class="left-section">
+    <img class="user-avatar" src="https://i.pinimg.com/564x/3b/27/a8/3b27a87fcf7d90ae564be23d7a37f778.jpg"
+      alt="default-avatar">
+    <button class="logout-button" mat-flat-button (click)="logout()">
+      <mat-icon>logout</mat-icon>
+      Logout
+    </button>
   </div>
-  }
-  <button mat-flat-button (click)="logout()">
-    <mat-icon>logout</mat-icon>
-    Logout
-  </button>
+  <div class="right-section">
+    @if (user) {
+    <div class="user-data">
+      <p>{{ user.firstName }} {{ user.lastName }}</p>
+      <p>{{ user.email }}</p>
+      <p>isEmailConfirmed: {{ user.isEmailConfirmed }}</p>
+    </div>
+    }
+  </div>
 </div>
