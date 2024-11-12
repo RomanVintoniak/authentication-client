@@ -9,6 +9,8 @@ import { MatInputModule } from '@angular/material/input';
 import { Regexp } from '../../../core/constants/regexp';
 import { AuthService } from '../../../core/services/auth.service';
 import { Router } from '@angular/router';
+import { LocalStorageService } from '../../../core/services/local-storage.service';
+import { LogInResponse } from '../../../core/models/auth/log-in-response.model';
 
 @Component({
   selector: 'app-login',
@@ -26,6 +28,7 @@ import { Router } from '@angular/router';
   styleUrl: './login.component.scss'
 })
 export class LoginComponent {
+  localStorageService = inject(LocalStorageService);
   authService = inject(AuthService);
   router = inject(Router);
   fb = inject(FormBuilder);
@@ -44,16 +47,22 @@ export class LoginComponent {
 
   onLogin() {
     this.isLoading = true;
+
     this.authService.login(this.form.value).subscribe({
-      next: (userId) => {
-        localStorage.setItem('userId', userId);
+      next: (data) => {
+        this.saveDataToLocalStorage(data);
         this.isLoading = false;
-        this.router.navigate(['/users', userId]);
+        this.router.navigate(['/users', data.userId]);
       },
       error: (error) => {
         this.isLoading = false;
         this.responseErrorMessage = error.error;
       }
     });
+  }
+
+  private saveDataToLocalStorage(data: LogInResponse) {
+    this.localStorageService.setToken(data.token);
+    this.localStorageService.setUserId(data.userId);
   }
 }

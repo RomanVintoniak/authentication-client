@@ -5,6 +5,7 @@ import { Router, RouterModule } from '@angular/router';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { CommonModule } from '@angular/common';
+import { LocalStorageService } from '../../core/services/local-storage.service';
 
 @Component({
   selector: 'app-user-profile',
@@ -19,17 +20,16 @@ import { CommonModule } from '@angular/common';
   styleUrl: './user-profile.component.scss'
 })
 export class UserProfileComponent implements OnInit {
+  localStorageService = inject(LocalStorageService);
   userService = inject(UserService);
   router = inject(Router);
 
-  userId: string | null = '';
   user!: User;
+  userId: string | null = null;
 
-  constructor() {
-    this.userId = localStorage.getItem('userId');
-  }
+  ngOnInit() {
+    this.localStorageService.userIdBehaviorSubject.subscribe((userId) => (this.userId = userId));
 
-  ngOnInit(): void {
     if (this.userId) {
       this.userService.get(this.userId).subscribe(user => {
         this.user = user;
@@ -38,7 +38,7 @@ export class UserProfileComponent implements OnInit {
   }
 
   logout() {
-    localStorage.removeItem('userId');
+    this.localStorageService.clear();
     this.router.navigate(['']);
   }
 }
