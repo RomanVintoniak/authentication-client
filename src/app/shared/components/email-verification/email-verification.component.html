@@ -1,0 +1,17 @@
+<div class="container">
+  @if (isLoading) {
+  <mat-spinner [diameter]="50"></mat-spinner>
+  }
+  @else if (isEmailVerified) {
+  <div class="verification-info">
+    <mat-icon class="verified-icon">verified</mat-icon>
+    <p>Email has been verified successfully</p>
+  </div>
+  }
+  @else {
+  <div class="verification-info">
+    <mat-icon class="error-icon">error</mat-icon>
+    <p>Something went wrong</p>
+  </div>
+  }
+</div>

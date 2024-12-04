@@ -1,0 +1,30 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 60px;
+  line-height: normal;
+
+  .verification-info {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    font-size: 40px;
+    font-weight: 500;
+  }
+
+  .verified-icon {
+    color: green;
+    font-size: 45px;
+    height: 50px;
+    width: 50px;
+  }
+
+  .error-icon {
+    color: red;
+    font-size: 45px;
+    height: 50px;
+    width: 50px;
+  }
+
+}
